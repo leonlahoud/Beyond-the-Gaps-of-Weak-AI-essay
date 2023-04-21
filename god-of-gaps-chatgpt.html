@@ -28,6 +28,7 @@ window.onload = function() {
     var chat = document.getElementById("chat");
     for (var i = jsonData.length-1; i >= 0; i--) {
         var conversation = jsonData[i];
+        var tm = new Date(conversation.create_time * 1000);
         var messages = getConversationMessages(conversation);
         var div = document.createElement("div");
         div.style = "margin: 10px; border: 1px solid black; padding: 10px;";
@@ -42,12 +43,16 @@ window.onload = function() {
             var message = document.createElement("pre");
             message.className = "message";
             message.style.whiteSpace = "pre-wrap";
-            message.innerHTML = messages[j];
+		if(messages[j].startsWith("user:")) message.style.fontWeight  = "bold";
+            message.innerHTML = tm + " " + messages[j];
             div.appendChild(message);
         }
         chat.appendChild(div);
     }
 }
+
+
+
 
 
 
